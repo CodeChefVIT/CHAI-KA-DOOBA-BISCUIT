@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.PoolNameFragment">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_twenty_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_fifty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_twenty_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_seventy_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <EditText
+        android:id="@+id/et_pool_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_name_hint"
+        android:inputType="text"
+        android:maxLength="20"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty_five"
+        app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
+        app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifty"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/btn_name_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
+        app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifty"
+        app:layout_constraintVertical_bias="0.2" />
+
+</android.support.constraint.ConstraintLayout>
