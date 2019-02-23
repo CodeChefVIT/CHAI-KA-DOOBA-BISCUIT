@@ -1,0 +1,19 @@
+from .models import Jobs, DLUser, Pool
+
+from rest_framework import serializers
+
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Jobs
+        fields = '__all__'
+
+class DLUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DLUser
+        fields = '__all__'
+
+class PoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pool
+        fields = '__all__'

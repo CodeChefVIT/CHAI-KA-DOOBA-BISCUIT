@@ -1,0 +1,158 @@
+from threading import Thread,Event
+from channels.generic.websocket import WebsocketConsumer
+import json
+import requests
+import jwt
+
+from app.serializers import *
+from app.models import *
+from app.serializers import JobSerializer
+
+websocket_connections = dict()
+stop=Event()
+STATIC_JOB_COUNT = 4
+
+def generate_response(action_type,payload):
+    return json.dumps({"action_type":action_type,"payload":payload})
+
+
+def bytes_divide(start,size,count):
+    division = int((int(size)-start)/count)
+    result = []
+    for i in range(count):
+        end = start + division
+        if i == count-1:
+            end = int(size)
+        result.append([start,end])
+        start = end
+    return result
+
+
+def fx_new_pool_user(pool_token,user,pool):
+    p_user = PoolUsers.objects.create(pool=pool, user=user)
+    p_user.save()
+    response = {'action_type':'new_pool_user','payload':{'name':user.name}}
+    for user_id in websocket_connections[pool.id].keys():
+        if user_id == user.id:
+            continue
+        websocket_connections[pool.id][user_id].send(text_data=json.dumps(response))
+    for iuser in PoolUsers.objects.filter(pool=pool):
+        response = {'action_type': 'new_pool_user', 'payload': {'name': iuser.user.name}}
+        websocket_connections[pool.id][user.id].send(text_data=json.dumps(response))
+
+def fx_start_download(conn,json_data):
+    pool_token = json_data['pool_token']
+    pool = Pool.objects.get(id=jwt.decode(pool_token,'secret')['id'])
+    file_size = requests.get(pool.url,stream=True).headers['Content-length']
+
+    pool_users = PoolUsers.objects.filter(pool=pool)
+    divisions = bytes_divide(0,file_size,len(pool_users))
+    for i in range(len(pool_users)):
+        user_alloted = divisions[i]
+        first_job = True
+        for result in bytes_divide(user_alloted[0],user_alloted[1],STATIC_JOB_COUNT):
+            if first_job:
+                job = Jobs.objects.create(pool=pool, alloted_user=pool_users[i].user, range_start=result[0],
+                                          range_end=result[1], status="ALLOTED",left=(result[1]-result[0]),url=pool.url)
+                job.save()
+                response = JobSerializer(job).data
+                websocket_connections[pool.id][pool_users[i].user.id].send(text_data=generate_response('new_job',response))
+                conn=websocket_connections[pool.id][pool_users[i].user.id]
+                thread=MyThread(stop,websocket_connections[pool.id][pool_users[i].user.id])
+                first_job = False
+            else:
+                job = Jobs.objects.create(pool=pool, alloted_user=pool_users[i].user, range_start=result[0],
+                                          range_end=result[1], status="RESERVED",left=(result[1]-result[0]),url=pool.url)
+                job.save()
+
+
+
+def fx_job_finished(conn,json_data):
+    print(json_data)
+    job_id = json_data['id']
+    job = Jobs.objects.get(id=job_id)
+    job.status = 'COMPLETED'
+    job.left = 0
+    job.save()
+    new_job = Jobs.objects.filter(pool=job.pool,alloted_user=job.alloted_user,status="RESERVED")
+    for user_id in websocket_connections[job.pool.id].keys():
+        print("id: ",user_id)
+        websocket_connections[job.pool.id][user_id].send(text_data=generate_response('job_finished',json_data))
+        print("sent job finished")
+    if len(new_job) > 0:
+        new_job = new_job[0]
+        new_job.status = "ALLOTED"
+        new_job.save()
+        print("new job:",new_job)
+        response = JobSerializer(new_job).data
+        print("sending new job")
+        websocket_connections[job.pool.id][job.alloted_user.id].send(text_data=generate_response('new_job', response))
+    else:
+        print("new jobs 0")
+        jobs_left = Jobs.objects.filter(pool=job.pool,status="RESERVED")
+        if len(jobs_left) == 0:
+            print("jobs left 0")
+            response = PoolSerializer(job.pool).data
+            for userid in websocket_connections[job.pool.id].keys():
+                websocket_connections[job.pool.id][userid].send(text_data=generate_response('all_jobs_finished',response))
+            print("all jobs finished")
+
+def fx_create_user(conn,json_data):
+    name = json_data['name']
+    user = DLUser.objects.create(name=name)
+    user.save()
+    payload = DLUserSerializer(user)
+    token = jwt.encode(payload.data,'secret').decode('utf-8')
+    conn.send(text_data=generate_response('create_user',{"user_token":token}))
+
+
+def fx_create_pool(conn,json_data):
+    user_token = json_data['user_token']
+    user = DLUser.objects.get(id=jwt.decode(user_token,'secret')['id'])
+    pool = Pool.objects.create(url=json_data['url'],admin=user,headers='')
+    pool.save()
+    payload = PoolSerializer(pool)
+    pool_token = jwt.encode(payload.data,'secret').decode('utf-8')
+    websocket_connections[pool.id] = dict()
+    websocket_connections[pool.id][user.id] = conn
+    fx_new_pool_user(pool_token, user, pool)
+    response = {"pool_token":pool_token}
+    conn.send(text_data=generate_response('create_pool',response))
+
+def fx_add_to_pool(conn,json_data):
+    pool_token = json_data['pool_token']
+    pool = Pool.objects.get(id=jwt.decode(pool_token,'secret')['id'])
+    user_token = json_data['user_token']
+    user = DLUser.objects.get(id=jwt.decode(user_token,'secret')['id'])
+    websocket_connections[pool.id][user.id] = conn
+    fx_new_pool_user(pool_token,user,pool)
+
+
+class AppConsumer(WebsocketConsumer):
+    def connect(self):
+        self.accept()
+        thread=MyThread(stop,self)
+
+
+    def disconnect(self, close_code):
+        stop.set()
+        print(close_code)
+        pass
+
+    def receive(self, text_data):
+        print(text_data)
+        text_data_json = json.loads(text_data)
+        action = text_data_json['action_type']
+        globals()['fx_'+action](self,json.loads(text_data_json['payload']))
+
+
+class MyThread(Thread):
+    def __init__(self, event,conn):
+        Thread.__init__(self)
+        self.stopped = event
+        self.conn = conn
+
+    def run(self):
+        while not self.stopped.wait(2):
+            print("sending hello")
+            self.conn.send(text_data="hello")
