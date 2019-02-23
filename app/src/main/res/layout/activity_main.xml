@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_fifteen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_twenty_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_eighty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_fifteen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_eighty_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_new_pool"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Create new pool"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty_five"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_your_pools"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Your pools"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_fifteen"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_twenty_five"
+        />
+
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        card_view:layout_goneMarginTop="25dp"
+        card_view:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_eighty"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_twenty_five"
+        >
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>
