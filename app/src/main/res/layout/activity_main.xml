@@ -4,21 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/gradient"
+    tools:context=".Activities.MainActivity">
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_fifteen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.11" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_twenty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_twenty_five"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_eighty"
@@ -28,77 +37,165 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_horizontal_fifteen"
+        android:id="@+id/guideline_horizontal_ten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_horizontal_eighty_five"
+        android:id="@+id/guideline_horizontal_thirty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.33" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_forty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_sixty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.64" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_seventy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.69" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_ninety"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.94" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="Home"
+        android:textSize="32dp"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_fifteen"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_ten"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_thirty"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_new_pool"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Create new pool"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty_five"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
-        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_height="0dp"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/partlySlightViolet"
+        android:text="New pool"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_ten"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_thirty"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifteen" />
 
     <Button
         android:id="@+id/btn_your_pools"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/partlySlightViolet"
         android:text="Your pools"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_fifteen"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
-        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
-        app:layout_constraintTop_toTopOf="@id/guideline_vertical_twenty_five"
-        />
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_forty"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_sixty"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifteen" />
 
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
+    <Button
+        android:id="@+id/btn_join_pool"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        card_view:layout_goneMarginTop="25dp"
-        card_view:cardCornerRadius="15dp"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/partlySlightViolet"
+        android:text="Join pool"
+        android:textSize="12dp"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_seventy"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_ninety"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifteen" />
+
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_eighty"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_fifteen"
-        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_eighty_five"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_ten"
+        app:layout_constraintRight_toRightOf="@id/guideline_horizontal_ninety"
         app:layout_constraintTop_toTopOf="@id/guideline_vertical_twenty_five"
-        >
+        card_view:cardCornerRadius="15dp"
+        card_view:layout_goneMarginTop="25dp">
 
         <TextView
             android:id="@+id/info_text"
+            android:text="Recent Files"
+            android:textStyle="bold"
+            android:layout_margin="14dp"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
     </android.support.v7.widget.CardView>
+
+
+
+    <LinearLayout
+    android:id="@+id/card_view_d"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+        android:orientation="vertical"
+    android:layout_gravity="center"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="@id/guideline_horizontal_ten"
+    app:layout_constraintRight_toRightOf="@id/guideline_horizontal_ninety"
+    app:layout_constraintTop_toTopOf="@id/guideline_vertical_eighty"
+    >
+
+    <TextView
+        android:id="@+id/info_text_pool"
+        android:text="Recent pool"
+        android:textStyle="bold"
+        android:layout_margin="12dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_recent_pool"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal" />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

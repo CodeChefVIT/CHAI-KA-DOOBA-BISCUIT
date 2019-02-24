@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import partlyapp.techpeg.com.partly.Constants.Constants;
+import partlyapp.techpeg.com.partly.Singleton.UserSingleton;
 
 public class WebSocketHelper {
 
@@ -24,7 +25,8 @@ public class WebSocketHelper {
     public void createWebSocket() {
         WebSocketFactory factory = new WebSocketFactory();
         try {
-            webSocket = factory.createSocket("http://51.158.72.92:8000/ws/", 5000);
+            //webSocket = factory.createSocket("http://51.158.72.92:8000/ws/", 5000);
+            webSocket = factory.createSocket("http://94.237.45.208:8182/ws/", 5000);
             SocketListener listener = new SocketListener();
             webSocket.addListener(listener);
         } catch (IOException e) {
@@ -63,8 +65,11 @@ public class WebSocketHelper {
         JSONObject object = new JSONObject();
         try {
             object.put(key, value);
-            if (Constants.USER_TOKEN != null)
-                object.put(Constants.KEY_USER_TOKEN, Constants.USER_TOKEN);
+            //if (Constants.USER_TOKEN != null)
+                //object.put(Constants.KEY_USER_TOKEN, Constants.USER_TOKEN);
+            String userToken=UserSingleton.getInstance().getUser_token();
+            if (userToken != null)
+                object.put(Constants.KEY_USER_TOKEN, userToken);
             return object.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,8 +84,9 @@ public class WebSocketHelper {
             for (int i = 0; i < keys.length; i++) {
                 object.put(keys[i], values[i]);
             }
-            if (Constants.USER_TOKEN != null)
-                object.put(Constants.KEY_USER_TOKEN, Constants.USER_TOKEN);
+            String userToken=UserSingleton.getInstance().getUser_token();
+            if (userToken != null)
+                object.put(Constants.KEY_USER_TOKEN, userToken);
 
             return object.toString();
         } catch (JSONException e) {

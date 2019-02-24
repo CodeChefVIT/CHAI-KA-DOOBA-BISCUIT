@@ -51,6 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_start"
+        android:textColor="#ffffff"
+        android:background="@drawable/roundbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
         app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"

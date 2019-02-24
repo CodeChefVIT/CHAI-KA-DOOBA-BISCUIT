@@ -1,7 +1,7 @@
 package partlyapp.techpeg.com.partly.Fragments;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
+
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,10 +18,10 @@ import com.neovisionaries.ws.client.WebSocket;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import partlyapp.techpeg.com.partly.Activities.PoolActivity;
 import partlyapp.techpeg.com.partly.Constants.Constants;
 import partlyapp.techpeg.com.partly.R;
-import partlyapp.techpeg.com.partly.ViewModels.PoolViewModel;
-import partlyapp.techpeg.com.partly.ViewModels.SocketViewModel;
+import partlyapp.techpeg.com.partly.Singleton.PoolSingleton;
 import partlyapp.techpeg.com.partly.WebSocket.WebSocketHelper;
 
 
@@ -29,9 +29,8 @@ public class PoolNameFragment extends Fragment {
 
     @BindView(R.id.btn_name_next)
     Button btn_name_next;
-    @ BindView(R.id.et_pool_name)
+    @BindView(R.id.et_pool_name)
     EditText et_pool_name;
-    SocketViewModel socketViewModel;
     WebSocket webSocket;
     WebSocketHelper socketHelper;
 
@@ -44,9 +43,8 @@ public class PoolNameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        socketViewModel = ViewModelProviders.of(getActivity()).get(SocketViewModel.class);
-        webSocket=socketViewModel.getWebSocket();
         socketHelper=new WebSocketHelper();
+        webSocket=WebSocketHelper.getWebSocket();
     }
 
     private void swapFragment(){
@@ -66,6 +64,7 @@ public class PoolNameFragment extends Fragment {
             public void onClick(View view) {
                 String pool_name=et_pool_name.getText().toString();
                 if(!pool_name.isEmpty()) {
+
                     sendPoolNameToServer(pool_name);
                     swapFragment();
                 }else{
@@ -78,6 +77,7 @@ public class PoolNameFragment extends Fragment {
 
 
     public void sendPoolNameToServer(String name) {
+        PoolSingleton.getInstance().getCurrentPool().setName(name);
         String payload = socketHelper.getStringMsg(Constants.KEY_POOL_NAME, name);
         String frame = socketHelper.getFrame(Constants.ACTION_CREATE_POOL, payload);
         Log.d("websocket", "frame sending-" + frame);

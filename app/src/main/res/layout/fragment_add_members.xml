@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.67" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_horizontal_twenty_five"
@@ -41,6 +41,18 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
+    <TextView
+        android:text="Pool Name"
+        android:id="@+id/tv_pool_name"
+        android:textColor="@color/partlyPrimary"
+        android:layout_height="wrap_content"
+        android:layout_width = "wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_twenty_five"
+        app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
+        app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <ImageView
         android:id="@+id/iv_pool_qr"
         android:layout_width="0dp"
@@ -48,44 +60,47 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_fifty"
         app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
         app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_vertical_twenty_five"
         />
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:background="@drawable/roundbuttongrey"
         app:layout_constraintBottom_toBottomOf="@id/guideline_vertical_seventy"
         app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
         app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
         app:layout_constraintTop_toTopOf="@id/guideline_vertical_fifty"
         app:layout_constraintVertical_bias="0.5"
         >
+
         <Button
-            android:layout_weight="1"
             android:id="@+id/btn_link_share"
-            android:text="Share"
-            android:layout_height="wrap_content"
-            android:layout_width = "wrap_content"
-            />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:drawable/ic_menu_share"
+            android:backgroundTint="@color/partlyPrimary" />
         <TextView
-            android:layout_weight="3"
             android:text="link/poolToken"
             android:id="@+id/tv_link_share"
+            android:textColor="@color/partlyPrimary"
             android:layout_height="wrap_content"
             android:layout_width = "wrap_content"
             />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_name_next"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_members_next"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:textColor="#ffffff"
+        android:background="@drawable/roundbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_seventy_five"
         app:layout_constraintStart_toStartOf="@id/guideline_horizontal_twenty_five"
         app:layout_constraintTop_toTopOf="@id/guideline_vertical_seventy"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.1"
+        tools:ignore="OnClick" />
 
 </android.support.constraint.ConstraintLayout>

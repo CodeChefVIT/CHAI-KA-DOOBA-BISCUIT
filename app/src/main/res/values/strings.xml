@@ -4,6 +4,33 @@
     <!-- New User Activity -->
     <string name="et_name_hint">Enter Name</string>
     <string name="btn_start">Start</string>
+    <string name="btn_next">Next</string>
+
+    <!-- Download Dialog Strings-->
+    <string name="download_link">Download Link</string>
+    <string name="link_txt">Link</string>
+    <string name="magnet_txt">Magnet</string>
+
+    !--Permission dialog strings-->
+    <string name="dialog_permission_title">Modify System Settings</string>
+    <string name="dialog_permission_message">To start Hotspot on Android Oreo or higher, Modify System Settings permission is required.
+         Please grant the permission
+    </string>
+    <string name="dialog_btn_allow">Allow</string>
+    <string name="dialog_btn_deny">Deny</string>
+
+    <!--Waiting Dialog String -->
+    <string name="waiting_msg">Connecting to Server</string>
+
+
+    <!-- Notification -->
+
+    <string name="notification_channelId">Part.ly</string>
+    <string name="notification_channelName">Part.ly App</string>
+    <string name="notification_channelDesc">AppService Running</string>
+    <string name="notification_contentTitle">Part.ly</string>
+    <string name="notification_contentDesc">App Running</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

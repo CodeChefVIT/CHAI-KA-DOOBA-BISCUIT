@@ -18,6 +18,7 @@ public class Constants {
     public static final String KEY_RANGE_END = "range_end";
     public static final String KEY_URL = "url";
     public static final String KEY_POOL_TOKEN = "pool_token";
+    public static final String KEY_DOWNLOAD_TOKEN ="download_token";
     public static final String KEY_FILE_SIZE = "file_size";
 
     /* Web Socket Actions */
@@ -33,6 +34,10 @@ public class Constants {
     public static final String ACTION_JOB_FINISHED = "job_finished";
     public static final String ACTION_ALL_JOBS_FINISHED = "all_jobs_finished";
     public static final String ACTION_RESUME = "resume";
+
+    /* Job Statuses */
+    public static final String JOB_STATUS_ONGOING="status_ongoing";
+    public static final String JOB_STATUS_FINISHED="status_finished";
 
     /* Sockets Actions */
     public static final String ACTION_SEND_JOBS = "send_jobs";

@@ -2,13 +2,20 @@ package partlyapp.techpeg.com.partly.Models;
 
 import android.graphics.Bitmap;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 
-public class Pool {
+public class Pool extends SugarRecord {
     String pool_token;
     String name;
     Bitmap icon;
+    ArrayList<Download> downloadArrayList;
     ArrayList<Member> members;
+
+    public ArrayList<Download> getDownloadArrayList() {
+        return downloadArrayList;
+    }
 
     public Pool(){
         members=new ArrayList<>();
@@ -17,6 +24,7 @@ public class Pool {
     public Pool(String name){
         this.name=name;
         members=new ArrayList<>();
+        downloadArrayList=new ArrayList<>();
     }
 
     public void setMembers(ArrayList<Member> members) {
